@@ -6,7 +6,10 @@
   "plugins": [
     {
       "name": "team-knowledge",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "chainupcloud/team-knowledge-plugin"
+      },
       "description": "团队知识库集成：3 级渐进式索引 + archiver + knowledge-explorer + 健康检查"
     }
   ]
