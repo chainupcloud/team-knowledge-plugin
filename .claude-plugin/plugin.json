@@ -1,6 +1,6 @@
 {
   "name": "team-knowledge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "团队知识库集成：3 级渐进式索引 + archiver + knowledge-explorer + 健康检查。需要团队知识仓库 clone 到 $TEAM_KNOWLEDGE_REPO（默认 ~/.team-knowledge）。",
   "author": {
     "name": "Your Team"
