@@ -4,16 +4,24 @@
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "REPO=\"${TEAM_KNOWLEDGE_REPO:-$HOME/.team-knowledge}\"; if [ -d \"$REPO\" ]; then cd \"$REPO\" && git pull --quiet origin main 2>/dev/null && echo '📚 团队知识库已同步至最新版本' || echo '⚠️  知识库同步失败（可能离线）'; else echo \"⚠️  知识库目录不存在: $REPO（设置 TEAM_KNOWLEDGE_REPO 或 clone 到 ~/.team-knowledge）\"; fi"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "REPO=\"${TEAM_KNOWLEDGE_REPO:-$HOME/.team-knowledge}\"; if [ -d \"$REPO\" ]; then cd \"$REPO\" && git pull --quiet origin main 2>/dev/null && echo '📚 团队知识库已同步至最新版本' || echo '⚠️  知识库同步失败（可能离线）'; else echo \"⚠️  知识库目录不存在: $REPO（设置 TEAM_KNOWLEDGE_REPO 或 clone 到 ~/.team-knowledge）\"; fi"
+          }
+        ]
       }
     ],
 
     "Stop": [
       {
         "matcher": ".*",
-        "type": "command",
-        "command": "echo '💡 提示：如果本次任务有可沉淀的经验，运行 /archive 触发知识提取'"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '💡 提示：如果本次任务有可沉淀的经验，运行 /archive 触发知识提取'"
+          }
+        ]
       }
     ]
   }
