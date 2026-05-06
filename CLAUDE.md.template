@@ -1,0 +1,27 @@
+## 团队知识库（自动维护，不要手改这一段）
+
+本项目接入团队共享知识库（位于 `~/.team-knowledge/`）。
+
+**核心纪律**：
+
+1. **任何技术决策、架构选择、踩坑排查前**，使用 `team-knowledge` skill 查询知识库。
+2. **深度查询不要污染主上下文** —— 使用 `@knowledge-explorer` subagent。
+3. **任务完成必须运行 `/archive`** —— 让 archiver 提取本次的知识沉淀。
+4. **PR 必须包含 `knowledgeReferences`** —— 标注本次工作引用了哪些知识。
+
+**知识引用格式**（写在 PR 描述或 commit footer）：
+
+```yaml
+knowledgeReferences:
+  - id: TK-PAT-001
+    usedIn: "查询性能优化方案"
+  - id: BK-ECO-PIT-001
+    usedIn: "并发控制设计"
+```
+
+**禁止**：
+- ❌ 直接 `grep` 整个知识库（请按三级渐进索引：catalog → category → entry）
+- ❌ 让 Claude 自动 commit 到知识库主分支（archiver 只能写到 `contributions/pending/`）
+- ❌ 跳过 `/archive` 流程手动写知识条目（极少数情况除外）
+
+详见知识库 README：`~/.team-knowledge/README.md`
