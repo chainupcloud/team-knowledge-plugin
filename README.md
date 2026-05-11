@@ -118,6 +118,9 @@ team-knowledge-plugin/
 │   └── import-knowledge.md      ← /import-knowledge
 ├── hooks/
 │   └── hooks.json               ← SessionStart + Stop
+├── templates/
+│   └── business-project-pr-template.md   ← 业务项目 PR 模板（手动复制）
+├── bootstrap.sh                 ← 一行命令装好整个环境
 └── CLAUDE.md.template           ← 业务项目接入片段
 ```
 
@@ -242,24 +245,29 @@ cat /path/to/team-knowledge-plugin/CLAUDE.md.template >> /your/project/CLAUDE.md
 
 ## 4. 安装
 
-### 前置条件
+### 一行命令（推荐）
 
 ```bash
-# 1. clone 团队知识仓库（默认位置）
-git clone <你们团队的 team-knowledge git URL> ~/.team-knowledge
-
-# 2. 装 lint/promote 脚本依赖
-pip3 install pyyaml
-# 如遇 PEP 668 错误：
-pip3 install --break-system-packages pyyaml
+curl -fsSL https://raw.githubusercontent.com/chainupcloud/team-knowledge-plugin/main/bootstrap.sh | bash
+# 自定义知识库 URL:
+curl -fsSL https://raw.githubusercontent.com/chainupcloud/team-knowledge-plugin/main/bootstrap.sh | bash -s -- git@github.com:your-org/your-kb.git
 ```
+
+`bootstrap.sh` 会：检查依赖 → clone/pull 知识库到 `~/.team-knowledge/` → 装 pyyaml（自动处理 PEP 668）→ 跑一次 lint 验证。完成后提示你进 Claude Code 跑两条 `/plugin` 命令。
 
 > 不想用默认路径？在 `~/.claude/settings.json` 顶层加：
 > ```json
 > { "env": { "TEAM_KNOWLEDGE_REPO": "/your/custom/path" } }
 > ```
 
-### 安装方式
+### 手动安装（如果 bootstrap 不适用）
+
+```bash
+git clone <你们团队的 team-knowledge git URL> ~/.team-knowledge
+pip3 install --break-system-packages pyyaml
+```
+
+### Plugin 安装方式
 
 **A. 从团队 marketplace 安装（生产推荐）**
 
@@ -291,6 +299,8 @@ ln -s /absolute/path/to/team-knowledge-plugin ~/.claude/plugins/team-knowledge
 ```bash
 cat /path/to/team-knowledge-plugin/CLAUDE.md.template >> ./CLAUDE.md
 ```
+
+可选：把 `templates/business-project-pr-template.md` 复制到业务项目的 `.github/pull_request_template.md`，让 PR 自动提示作者标注 `knowledgeReferences` 和是否触发 `/archive`。
 
 ---
 
